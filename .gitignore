@@ -1,0 +1,6 @@
+*.npy
+*config.json
+*.h5
+*.pickle
+*/data/*
+*/binaries/*
