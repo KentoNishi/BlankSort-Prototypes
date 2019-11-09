@@ -1,2 +1,1 @@
 # BlankSort-Prototypes
-[![Build status](https://dev.azure.com/kento24gs/BlankSort/_apis/build/status/blanksort%20-%201%20-%20CI)](https://dev.azure.com/kento24gs/BlankSort/_build/latest?definitionId=4)
