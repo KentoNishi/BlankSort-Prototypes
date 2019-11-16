@@ -12,7 +12,10 @@ import zipfile
 import re
 import io
 import cgi
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 def maybe_download(filename, url):
@@ -124,12 +127,12 @@ def returnRanks(testCase, num=None, **attributes):
 @app.route("/post", methods=['POST'])
 def loadPage():
     data = request.json
-    result=dict()
+    result = dict()
     if("text" in data):
-        result={
-            "status":"ok",
-            "result":returnRanks(data["text"])
+        result = {
+            "status": "ok",
+            "result": returnRanks(data["text"])
         }
     else:
-        result={"status":"error"}
+        result = {"status": "error"}
     return jsonify(result)
