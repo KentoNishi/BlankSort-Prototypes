@@ -12,9 +12,8 @@ import zipfile
 import re
 import io
 import cgi
-from flask_cors import CORS
 app = Flask(__name__)
-CORS(app)
+
 
 def maybe_download(filename, url):
     if not os.path.exists(os.path.join(os.getcwd(), filename)):
