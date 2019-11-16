@@ -4,7 +4,7 @@ import numpy as np
 import re
 import pickle
 from keras.models import load_model
-from flask import Flask
+from flask import Flask, request, jsonify
 import glob
 import os
 import urllib
@@ -113,25 +113,23 @@ def generateRankedList(string, **attributes):
     return rankedWords
 
 
-def printStr(testCase, num=None, **attributes):
+def returnRanks(testCase, num=None, **attributes):
     noNumbers = attributes["noNumbers"] if "noNumbers" in attributes else True
     noStopWords = attributes["noStopWords"] if "noStopWords" in attributes else True
-    toPrint = ""
     rankedWords = generateRankedList(
         testCase, noNumbers=noNumbers, noStopWords=noStopWords)
-    toPrint += (testCase)
-    if(num == None):
-        num = len(rankedWords)
-    else:
-        num = min(len(rankedWords), num)
-    toPrint += ("\n")
-    for i in range(num):
-        toPrint += (str(i+1)+". "+rankedWords[i][0] +
-                    ": "+str(round(rankedWords[i][1], 3)))+"\n"
-    toPrint += ("\n")
-    return toPrint
+    return rankedWords
 
 
-@app.route("/")
+@app.route("/post", methods=['POST'])
 def loadPage():
-    return "<pre>"+cgi.escape(printStr("Keras is a neural network library written in Python."))+"</pre>"
+    data = request.json
+    result=dict()
+    if("text" in data):
+        result={
+            "status":"ok",
+            "result":returnRanks(data["text"])
+        }
+    else:
+        result={"status":"error"}
+    return jsonify(result)
