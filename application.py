@@ -136,3 +136,8 @@ def loadPage():
     else:
         result = {"status": "error"}
     return jsonify(result)
+
+
+@app.route("/")
+def loadPage():
+    return "Server running!"
