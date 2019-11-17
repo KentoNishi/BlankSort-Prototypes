@@ -37,7 +37,6 @@ def beforeStartup():
     maybe_download("binaries.zip",
                    "https://blanksortbinaries.blob.core.windows.net/binaries/binaries.zip")
     extract("binaries.zip")
-
     globals()["model"] = load_model(os.path.join(os.path.join(os.path.abspath(
         './binaries'), "models"), "classification_model.h5"))
     model.summary()
