@@ -6,3 +6,4 @@ pickleshare==0.7.5
 ipython==7.7.0
 gunicorn==19.9.0
 tensorflow==1.14.0
+flask-cors==3.0.8
