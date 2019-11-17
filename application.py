@@ -139,5 +139,5 @@ def loadPage():
 
 
 @app.route("/")
-def loadPage():
+def loadDefault():
     return "Server running!"
