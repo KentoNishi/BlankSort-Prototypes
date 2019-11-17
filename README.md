@@ -1,1 +1,1 @@
-# BlankSort-Prototypes
+# [BlankSort-Prototypes](https://kentonishi.github.io/BlankSort-Prototypes/)
