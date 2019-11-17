@@ -126,14 +126,15 @@ def returnRanks(testCase, num=None, **attributes):
 @app.route("/post", methods=['POST'])
 def loadPage():
     data = request.json
-    result = dict()
-    if("text" in data):
-        result = {
-            "status": "ok",
-            "result": returnRanks(data["text"])
-        }
-    else:
-        result = {"status": "error"}
+    result  = {"status": "error"}
+    if("text" in data and len(data["text"]) <= 3000):
+        try:
+            result = {
+                "status": "ok",
+                "result": returnRanks(data["text"])
+            }
+        except Exception:
+            pass
     return jsonify(result)
 
 
