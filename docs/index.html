@@ -1,25 +1,52 @@
-<script>
-    /*
-    fetch('https://httpbin.org/post', {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text:"" })
-    }).then(res => res.json())
-        .then(res => console.log(res));
-    xhr = new XMLHttpRequest();
-    var url = "https://blanksort.azurewebsites.net/post";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json);
-        }
+<style>
+    * {
+        font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+        color: white;
+        font-size: 20px;
+        background-color: rgb(29, 29, 29);
     }
-    var data = JSON.stringify({text:"I love using Python!"});
-    xhr.send(data);
-    */
+
+    textarea {
+        width: 50vw;
+        height: 40vh;
+    }
+
+    .centered {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+</style>
+<p class="centered">Input:</p>
+<textarea class="centered">
+</textarea>
+<button class="centered">
+    Run Extraction
+</button>
+<p class="centered">Output:</p>
+<textarea class="centered" readonly>
+</textarea>
+<script>
+    function run(text) {
+        fetch('https://blanksort.herokuapp.com/post', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: text })
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                str = []
+                for (var i = 0; i < res.result.length; i++) {
+                    str.push((i + 1) + ". " + res.result[i][0] + ": " + res.result[i][1].toFixed(3));
+                }
+                document.querySelectorAll("textarea")[1].value = str.join("\n");
+            });
+    }
+    document.querySelectorAll("button")[0].onclick = () => {
+        run(document.querySelectorAll("textarea")[0].value);
+    };
 </script>
