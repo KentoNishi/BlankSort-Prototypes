@@ -46,7 +46,7 @@ Your first request can take up to a minute to process.
             .then(res => {
                 console.log(res);
                 if (res.status != "ok" || res.result.length == 0) {
-                    document.querySelectorAll("textarea")[1].value = "The server encountered an error.";
+                    document.querySelectorAll("textarea")[1].value = "No keywords were extracted.";
                 } else {
                     str = []
                     for (var i = 0; i < res.result.length; i++) {
