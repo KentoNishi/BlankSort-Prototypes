@@ -4,3 +4,5 @@
 *.pickle
 */data/*
 */binaries/*
+*/.ipynb_checkpoints/*
+__pycache__/*
