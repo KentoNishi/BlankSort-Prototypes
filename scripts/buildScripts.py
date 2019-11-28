@@ -23,7 +23,7 @@ def maybe_download(filename, url):
     if not os.path.exists(os.path.join(os.getcwd(), filename)):
         filename, _ = urllib.request.urlretrieve(
             url, os.path.join(os.getcwd(), filename))
-    statinfo = os.stat(os.path.join(os.getcwd(), filename))
+    # statinfo = os.stat(os.path.join(os.getcwd(), filename))
     print('Found and verified', filename)
     return filename
 

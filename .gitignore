@@ -5,5 +5,4 @@
 */data/*
 */binaries/*
 */.ipynb_checkpoints/*
-__pycache__/*
-*.zip
+*/__pycache__/*

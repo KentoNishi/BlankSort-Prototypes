@@ -27,37 +27,47 @@ def inNB():
 # In[3]:
 
 
+window_size=None
+vocab_size=None
+model=lambda:None
+dictionary=dict()
+stopWords=[]
+
+
+# In[4]:
+
+
 def beforeStartup():
-    if(not inNB()):
+    if(inNB()):
         maybe_download("binaries.zip",
                     "https://blanksortbinaries.blob.core.windows.net/binaries/binaries.zip")
         extract("binaries.zip")
     globals()["model"] = load_model(os.path.join(os.path.join(os.path.abspath(
-        ("." if inNB() else "")+'./binaries'), "models"), "classification_model.h5"))
+        './binaries'), "models"), "classification_model.h5"))
     model.summary()
     names = ["window_size", "vocab_size", "dictionary"]
     for name in names:
-        with open(os.path.join(os.path.join(os.path.abspath(("." if inNB() else "")+'./binaries'), "pickles"), name+".pickle"), "rb") as f:
+        with open(os.path.join(os.path.join(os.path.abspath('./binaries'), "pickles"), name+".pickle"), "rb") as f:
             globals()[name] = pickle.load(f)
     nltk.download("stopwords")
     globals()["stopWords"] = set(stopwords.words("english"))
 
 
-# In[4]:
+# In[5]:
 
 
 def removeStopWords(rankedWords):
     return [word for word in rankedWords if word[0] not in stopWords]
 
 
-# In[5]:
+# In[6]:
 
 
 def removeNumbers(rankedWords):
     return  [word for word in rankedWords if not any(char.isdigit() for char in word[0])]
 
 
-# In[6]:
+# In[7]:
 
 
 def generateInverseCounts(wordSequence):
@@ -70,7 +80,7 @@ def generateInverseCounts(wordSequence):
     return [1/countDict[word] for word in wordSequence]
 
 
-# In[7]:
+# In[8]:
 
 
 def findWordScores(wordSequence,tokenized):
@@ -88,7 +98,7 @@ def findWordScores(wordSequence,tokenized):
     return ([tokenized[i],inverseCounts[i]*wordScores[i]/contextCounts[i]] for i in range(len(wordSequence)))
 
 
-# In[8]:
+# In[9]:
 
 
 def formatData(string):
@@ -104,7 +114,7 @@ def formatData(string):
     return wordSequence,tokenized,string
 
 
-# In[9]:
+# In[10]:
 
 
 def generateRankedList(string,**attributes):
@@ -128,7 +138,7 @@ def generateRankedList(string,**attributes):
     return rankedWords
 
 
-# In[10]:
+# In[11]:
 
 
 def printList(testCase,num=None,**attributes):
@@ -163,7 +173,7 @@ def maybe_download(filename, url):
     if not os.path.exists(os.path.join(os.getcwd(), filename)):
         filename, _ = urllib.request.urlretrieve(
             url, os.path.join(os.getcwd(), filename))
-    statinfo = os.stat(os.path.join(os.getcwd(), filename))
+    # statinfo = os.stat(os.path.join(os.getcwd(), filename))
     print('Found and verified', filename)
     return filename
 
