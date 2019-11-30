@@ -40,7 +40,7 @@ stopWords=[]
 def beforeStartup():
     if(not inNB()):
         maybe_download("binaries-v2.zip",
-                    "https://blanksortbinaries.blob.core.windows.net/binaries/binaries.zip")
+                    "https://blanksortbinaries.blob.core.windows.net/binaries/binaries-v2.zip")
         extract("binaries-v2.zip")
     globals()["model"] = load_model(os.path.join(os.path.join(os.path.abspath(
         ('.' if inNB() else '')+'./binaries'), "models"), "classification_model.h5"))
