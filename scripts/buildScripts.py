@@ -1,11 +1,12 @@
 import subprocess
 import os
 
-p = subprocess.Popen("jupyter nbconvert --to python "+os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)),"notebooks","runModel.ipynb"))+" --stdout", stdout=subprocess.PIPE)
+p = subprocess.Popen("jupyter nbconvert --to python "+os.path.join(os.path.join(os.path.dirname(
+    os.path.dirname(__file__)), "notebooks", "runModel.ipynb"))+" --stdout", stdout=subprocess.PIPE)
 
-runModelScript=p.communicate()[0].decode("utf-8")
+runModelScript = p.communicate()[0].decode("utf-8")
 
-serverInit="""
+serverInit = """
 from flask import Flask, request, jsonify
 import glob
 import urllib
@@ -33,7 +34,7 @@ def extract(filename):
         zip_ref.extractall("")
 """
 
-serverRun="""
+serverRun = """
 def returnRanks(testCase, num=None, **attributes):
     noNumbers = attributes["noNumbers"] if "noNumbers" in attributes else True
     noStopWords = attributes["noStopWords"] if "noStopWords" in attributes else True
@@ -42,9 +43,9 @@ def returnRanks(testCase, num=None, **attributes):
     return rankedWords
 
 
-@app.before_first_request
 def beforeFirstRequest():
     beforeStartup()
+@app.before_first_request(beforeFirstRequest)
 
 
 @app.route("/post", methods=['POST'])
@@ -67,7 +68,6 @@ def loadDefault():
     return "Server running!"
 """
 
-with open(os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)),"application.py")),"w") as file:
+with open(os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)), "application.py")), "w") as file:
     file.write(runModelScript+serverInit+serverRun)
     file.close()
-

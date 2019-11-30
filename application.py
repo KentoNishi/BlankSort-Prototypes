@@ -38,16 +38,16 @@ stopWords=[]
 
 
 def beforeStartup():
-    if(inNB()):
-        maybe_download("binaries.zip",
+    if(not inNB()):
+        maybe_download("binaries-v2.zip",
                     "https://blanksortbinaries.blob.core.windows.net/binaries/binaries.zip")
-        extract("binaries.zip")
+        extract("binaries-v2.zip")
     globals()["model"] = load_model(os.path.join(os.path.join(os.path.abspath(
-        './binaries'), "models"), "classification_model.h5"))
+        ('.' if inNB() else '')+'./binaries'), "models"), "classification_model.h5"))
     model.summary()
     names = ["window_size", "vocab_size", "dictionary"]
     for name in names:
-        with open(os.path.join(os.path.join(os.path.abspath('./binaries'), "pickles"), name+".pickle"), "rb") as f:
+        with open(os.path.join(os.path.join(os.path.abspath(('.' if inNB() else '')+'./binaries'), "pickles"), name+".pickle"), "rb") as f:
             globals()[name] = pickle.load(f)
     nltk.download("stopwords")
     globals()["stopWords"] = set(stopwords.words("english"))
@@ -154,6 +154,13 @@ def printList(testCase,num=None,**attributes):
     for i in range(num):
         print(str(i+1)+". "+rankedWords[i][0]+": "+str(round(rankedWords[i][1],3)))
     print()
+
+
+# In[12]:
+
+
+if inNB():
+    beforeStartup()
 
 
 from flask import Flask, request, jsonify
