@@ -4,3 +4,4 @@
 *.pickle
 */data/*
 */binaries/*
+*.zip
