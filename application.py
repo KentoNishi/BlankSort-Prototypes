@@ -44,6 +44,7 @@ def beforeStartup():
         extract("binaries-v2.zip")
     globals()["model"] = load_model(os.path.join(os.path.join(os.path.abspath(
         ('.' if inNB() else '')+'./binaries'), "models"), "classification_model.h5"))
+    model._make_predict_function()
     model.summary()
     names = ["window_size", "vocab_size", "dictionary"]
     for name in names:

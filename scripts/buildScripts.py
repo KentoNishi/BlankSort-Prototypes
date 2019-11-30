@@ -43,9 +43,9 @@ def returnRanks(testCase, num=None, **attributes):
     return rankedWords
 
 
+@app.before_first_request
 def beforeFirstRequest():
     beforeStartup()
-@app.before_first_request(beforeFirstRequest)
 
 
 @app.route("/post", methods=['POST'])
