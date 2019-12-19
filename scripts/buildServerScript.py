@@ -35,13 +35,6 @@ def extract(filename):
 """
 
 serverRun = """
-def returnRanks(testCase, num=None, **attributes):
-    noNumbers = attributes["noNumbers"] if "noNumbers" in attributes else True
-    noStopWords = attributes["noStopWords"] if "noStopWords" in attributes else True
-    rankedWords = generateRankedList(
-        testCase, noNumbers=noNumbers, noStopWords=noStopWords)
-    return rankedWords
-
 
 @app.before_first_request
 def beforeFirstRequest():
