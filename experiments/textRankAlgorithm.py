@@ -1,5 +1,6 @@
 import spacy
 import pytextrank
+from collections import OrderedDict
 
 def rankText(text):
     # load a spaCy model, depending on language, scale, etc.
@@ -17,4 +18,5 @@ def rankText(text):
         print("{:.4f} {:5d}  {}".format(p.rank, p.count, p.text))
         print(p.chunks)
     """
-    return [[p.text,p.rank] for p in doc._.phrases]
+    phrases=[[p.text,p.rank] for p in doc._.phrases]
+    return phrases
