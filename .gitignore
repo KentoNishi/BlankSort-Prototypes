@@ -5,3 +5,4 @@
 */data/*
 */binaries/*
 *.zip
+*/.ipynb_checkpoints/*
