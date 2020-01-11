@@ -6,7 +6,7 @@ import nltk
 import operator
 import nltk
 from dataclasses import dataclass
-from ftmmap import *
+from ftooc import *
 
 
 class BlankSort:
@@ -14,7 +14,7 @@ class BlankSort:
 
     __model = None
     __lemmatizer = None
-    __window_size = None
+    __windowSize = None
     __stemmer = None
     __stops = set()
 
@@ -25,10 +25,10 @@ class BlankSort:
         nltk.download("wordnet")
         nltk.download("stopwords")
         nltk.download("punkt")
-        self.__model = FTmmap(
+        self.__model = FTOOC(
             os.path.join(os.getcwd(), os.path.join(binary_path, "cc.en.300.vec"))
         )
-        self.__window_size = 3
+        self.__windowSize = 3
         self.__lemmatizer = nltk.WordNetLemmatizer()
         self.__stemmer = nltk.stem.porter.PorterStemmer()
         # https://github.com/Alir3z4/stop-words
@@ -67,9 +67,38 @@ class BlankSort:
                 wordCounts[tokens[i]] = 1
         return wordCounts
 
+    def __buildDictionary(self, tokens):
+        dictionary = set(tokens)
+        return dictionary
+
     def rank(self, text):
         tokens = self.__cleanText(text)
-        print(tokens)
+        dictionary = self.__buildDictionary(tokens)
+        self.__model.loadVectors(dictionary - set(self.__model.savedVectors.keys()))
         wordCounts = self.__countWords(tokens)
         scores = np.zeros(len(tokens))
-
+        wordScores = dict()
+        similarityMatrix = np.full((len(tokens), len(tokens)), np.nan, dtype=float)
+        for i in range(len(tokens)):
+            leftBound = max(0, i - self.__windowSize)
+            rightBound = min(len(tokens) - 1, i + self.__windowSize)
+            contextSize = rightBound - leftBound + 1
+            for j in range(i + 1, rightBound + 1):
+                similarityScore = 0.0
+                if np.isnan(similarityMatrix[i][j]):
+                    similarityScore = self.__model.similarity(tokens[i], tokens[j])
+                    # similarityScore = (similarityScore + 1) / 2.0
+                else:
+                    similarityScore = similarityMatrix[i][j]
+                scores[i] += similarityScore
+                scores[j] += similarityScore
+                similarityMatrix[i][j] = similarityScore
+                similarityMatrix[j][i] = similarityScore
+            wordScore = scores[i] / (wordCounts[tokens[i]] * contextSize)
+            if tokens[i] not in wordScores:
+                wordScores[tokens[i]] = wordScore
+            else:
+                wordScores[tokens[i]] = min(wordScores[tokens[i]], wordScore)
+        scoreList = list(map(list, wordScores.items()))
+        scoreList = sorted(scoreList, key=lambda x: x[1])
+        return scoreList
