@@ -20,7 +20,7 @@ class FTOOC:
         databasePath = os.path.join(
             os.path.dirname(self.__modelPath), "blanksort.database"
         )
-        print(databasePath)
+        print("Database path: "+databasePath)
         self.__savedVectors = SqliteDict(databasePath, autocommit=True)
         self.__loadVectors()
 
