@@ -6,7 +6,7 @@ import nltk
 import operator
 import nltk
 from dataclasses import dataclass
-import ftmmap
+from ftmmap import *
 
 
 class BlankSort:
@@ -18,22 +18,20 @@ class BlankSort:
     __stemmer = None
     __stops = set()
 
-    def ___init__(self, binary_path):
+    def __init__(self, binary_path):
         self.__loadData(binary_path)
 
     def __loadData(self, binary_path):
         nltk.download("wordnet")
         nltk.download("stopwords")
-        if "__model" not in dir(type(self)):
-            # https://fasttext.cc/docs/en/crawl-vectors.html
-            type(self).__model = os.path.join(
-                os.getcwd(), os.path.join(binary_path, "cc.en.300.bin")
-            )
-        type(self).__window_size = 3
-        type(self).__lemmatizer = nltk.WordNetLemmatizer()
-        type(self).__stemmer = nltk.stem.porter.PorterStemmer()
+        self.__model = FTmmap(
+            os.path.join(os.getcwd(), os.path.join(binary_path, "cc.en.300.vec"))
+        )
+        self.__window_size = 3
+        self.__lemmatizer = nltk.WordNetLemmatizer()
+        self.__stemmer = nltk.stem.porter.PorterStemmer()
         # https://github.com/Alir3z4/stop-words
-        type(self).__stops = set(
+        self.__stops = set(
             line.strip()
             for line in open(
                 os.path.join(
@@ -46,12 +44,12 @@ class BlankSort:
     def __cleanText(self, text):
         text = text.lower()
         tokens = nltk.word_tokenize(text)
-        lemmatizedWords = [type(self).__lemmatizer.lemmatize(word) for word in tokens]
+        lemmatizedWords = [self.__lemmatizer.lemmatize(word) for word in tokens]
         stemmedWords = [
             token
             for token in lemmatizedWords
-            if type(self).__stemmer.stem(token) not in type(self).__stops
-            and token not in type(self).__stops
+            if self.__stemmer.stem(token) not in self.__stops
+            and token not in self.__stops
         ]
         return stemmedWords
 

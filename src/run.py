@@ -1,2 +1,2 @@
 from BlankSort import *
-blanksort=BlankSort("./binaries/data")
+blanksort=BlankSort("../binaries/data")

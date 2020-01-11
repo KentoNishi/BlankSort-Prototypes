@@ -8,8 +8,12 @@ from operator import itemgetter
 
 
 class FTmmap:
+
+    __vocabulary = set()
+
     def __init__(self, path):
         self.__modelPath = path
+        self.__getVocab()
 
     def cos_sim(self, a, b):
         return dot(a, b) / (norm(a) * norm(b))
@@ -21,12 +25,14 @@ class FTmmap:
             return None
 
     def inVocab(self, search_token):
+        return search_token in self.__vocabulary
+
+    def __getVocab(self):
         with open(self.__modelPath, "rb") as infile:
             for line in infile:
                 line_decoded = line.decode("utf-8")
                 word, vec_s = line_decoded.strip().split(" ", 1)
-                if search_token == word:
-                    return True
+                self.__vocabulary.add(word)
         return False
 
     def getVector(self, search_token):
