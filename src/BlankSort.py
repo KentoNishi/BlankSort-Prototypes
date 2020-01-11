@@ -74,7 +74,6 @@ class BlankSort:
     def rank(self, text):
         tokens = self.__cleanText(text)
         dictionary = self.__buildDictionary(tokens)
-        self.__model.loadVectors(dictionary - set(self.__model.savedVectors.keys()))
         wordCounts = self.__countWords(tokens)
         scores = np.zeros(len(tokens))
         wordScores = dict()

@@ -2,45 +2,41 @@
 from gensim.models.wrappers import FastText
 from gensim.matutils import cossim
 import numpy as np
+import os
 from numpy import dot
 from numpy.linalg import norm
 from operator import itemgetter
 from scipy import spatial
+from sqlitedict import SqliteDict
 
 
 class FTOOC:
 
-    __vocabulary = set()
+    __modelPath = ""
     savedVectors = dict()
 
     def __init__(self, path):
         self.__modelPath = path
-        self.__getVocab()
+        databasePath = os.path.join(
+            os.path.dirname(self.__modelPath), "blanksort.database"
+        )
+        print(databasePath)
+        self.__savedVectors = SqliteDict(databasePath, autocommit=True)
+        self.__loadVectors()
 
     def __cos_sim(self, a, b):
         return spatial.distance.cosine(a, b)
 
     def inVocab(self, search_token):
-        return search_token in self.__vocabulary
+        return search_token in self.savedVectors
 
-    def __getVocab(self):
+    def __loadVectors(self):
         with open(self.__modelPath, "rb") as infile:
             for line in infile:
                 line_decoded = line.decode("utf-8")
                 word, vec_s = line_decoded.strip().split(" ", 1)
-                self.__vocabulary.add(word)
-        return False
-
-    def loadVectors(self, dictionary):
-        if(len(dictionary)==0):
-            return
-        with open(self.__modelPath, "rb") as infile:
-            for line in infile:
-                line_decoded = line.decode("utf-8")
-                word, vec_s = line_decoded.strip().split(" ", 1)
-                if word not in self.savedVectors and word in dictionary:
-                    vector = np.array([float(v) for v in vec_s.split(" ")])
-                    self.savedVectors[word] = vector
+                vector = np.array([float(v) for v in vec_s.split(" ")])
+                self.savedVectors[word] = vector
 
     def getVector(self, search_token):
         return self.savedVectors[search_token]
