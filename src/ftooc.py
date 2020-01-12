@@ -21,7 +21,7 @@ class FTOOC:
             os.path.dirname(self.__modelPath), "blanksort.database"
         )
         print("Database path: "+databasePath)
-        self.__savedVectors = SqliteDict(databasePath, autocommit=True)
+        self.savedVectors = SqliteDict(databasePath, autocommit=True)
         self.__loadVectors()
 
     def __cos_sim(self, a, b):
@@ -43,4 +43,3 @@ class FTOOC:
 
     def similarity(self, a, b):
         return self.__cos_sim(self.getVector(a), self.getVector(b))
-

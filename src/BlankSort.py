@@ -25,6 +25,7 @@ class BlankSort:
         nltk.download("wordnet")
         nltk.download("stopwords")
         nltk.download("punkt")
+        # https://fasttext.cc/docs/en/crawl-vectors.html
         self.__model = FTOOC(
             os.path.join(os.getcwd(), os.path.join(binary_path, "cc.en.300.vec"))
         )
