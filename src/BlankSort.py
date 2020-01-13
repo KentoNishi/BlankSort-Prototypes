@@ -7,6 +7,7 @@ import operator
 import nltk
 from dataclasses import dataclass
 from ftooc import *
+import time
 
 
 class BlankSort:
@@ -48,11 +49,14 @@ class BlankSort:
             word for word in tokens if word not in self.__stops and word.isalpha()
         ]
         tokens = [word.strip() for word in tokens]
-        lemmatizedWords = [self.__lemmatizer.lemmatize(word) for word in tokens]
+        lemmatizedWords = (
+            tokens  # [self.__lemmatizer.lemmatize(word) for word in tokens]
+        )
         stemmedWords = [
             token
             for token in lemmatizedWords
-            if self.__stemmer.stem(token) not in self.__stops
+            if token not in self.__stops
+            and self.__stemmer.stem(token) not in self.__stops
             # and self.__model.inVocab(token)
         ]
         return stemmedWords
@@ -72,7 +76,7 @@ class BlankSort:
 
     def rank(self, text):
         tokens = self.__cleanText(text)
-        dictionary = self.__buildDictionary(tokens)
+        # dictionary = self.__buildDictionary(tokens)
         wordCounts = self.__countWords(tokens)
         scores = np.zeros(len(tokens))
         wordScores = dict()
@@ -84,7 +88,9 @@ class BlankSort:
             for j in range(i + 1, rightBound + 1):
                 similarityScore = 0.0
                 if np.isnan(similarityMatrix[i][j]):
+                    # start = time.process_time()
                     similarityScore = self.__model.similarity(tokens[i], tokens[j])
+                    # print(time.process_time() - start)
                 else:
                     similarityScore = similarityMatrix[i][j]
                 scores[i] += similarityScore

@@ -9,12 +9,14 @@ from numpy import dot
 from numpy.linalg import norm
 from operator import itemgetter
 from sqlitedict import SqliteDict
+import time
 
 
 class FTOOC:
 
     __modelPath = ""
-    savedVectors = dict()
+    vectorDatabase = dict()
+    __savedVectors = dict()
 
     def __init__(self, path):
         self.__modelPath = path
@@ -22,7 +24,7 @@ class FTOOC:
             os.path.dirname(self.__modelPath), "blanksort.database"
         )
         print("Database path: " + databasePath)
-        self.savedVectors = SqliteDict(databasePath, autocommit=True)
+        self.vectorDatabase = SqliteDict(databasePath, autocommit=True)
         if not os.path.isfile(databasePath):
             self.__loadVectors()
 
@@ -30,7 +32,7 @@ class FTOOC:
         return (1 + dot(a, b) / (norm(a) * norm(b))) / 2.0
 
     def inVocab(self, searchToken):
-        return searchToken in self.savedVectors
+        return searchToken in self.vectorDatabase
 
     def __loadVectors(self):
         with open(self.__modelPath, "rb") as infile:
@@ -38,7 +40,7 @@ class FTOOC:
                 line_decoded = line.decode("utf-8")
                 word, vec_s = line_decoded.strip().split(" ", 1)
                 vector = np.array([float(v) for v in vec_s.split(" ")])
-                self.savedVectors[word] = vector
+                self.vectorDatabase[word] = vector
 
     def __generateNgrams(self, searchToken, minN, maxN):
         ngrams = []
@@ -61,9 +63,12 @@ class FTOOC:
             raise KeyError("all ngrams for word " + searchToken + " absent from model")
 
     def getVector(self, searchToken):
-        if self.inVocab(searchToken):
-            return self.savedVectors[searchToken]
-        return self.__generateVector(searchToken)
+        if searchToken in self.__savedVectors or self.inVocab(searchToken):
+            if searchToken not in self.__savedVectors:
+                self.__savedVectors[searchToken] = self.vectorDatabase[searchToken]
+            return self.__savedVectors[searchToken]
+        self.__savedVectors[searchToken] = self.__generateVector(searchToken)
+        return self.__savedVectors[searchToken]
 
     def similarity(self, a, b):
         return self.__cos_sim(self.getVector(a), self.getVector(b))
