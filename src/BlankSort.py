@@ -26,9 +26,7 @@ class BlankSort:
         nltk.download("stopwords")
         nltk.download("punkt")
         # https://fasttext.cc/docs/en/crawl-vectors.html
-        self.__model = FTOOC(
-            os.path.join(os.getcwd(), os.path.join(binary_path, "cc.en.300.vec"))
-        )
+        self.__model = FTOOC(os.path.join(binary_path, "cc.en.300.vec"))
         self.__windowSize = 3
         self.__lemmatizer = nltk.WordNetLemmatizer()
         self.__stemmer = nltk.stem.porter.PorterStemmer()
@@ -55,7 +53,7 @@ class BlankSort:
             token
             for token in lemmatizedWords
             if self.__stemmer.stem(token) not in self.__stops
-            and self.__model.inVocab(token)
+            # and self.__model.inVocab(token)
         ]
         return stemmedWords
 
@@ -87,7 +85,6 @@ class BlankSort:
                 similarityScore = 0.0
                 if np.isnan(similarityMatrix[i][j]):
                     similarityScore = self.__model.similarity(tokens[i], tokens[j])
-                    # similarityScore = (similarityScore + 1) / 2.0
                 else:
                     similarityScore = similarityMatrix[i][j]
                 scores[i] += similarityScore
@@ -102,3 +99,6 @@ class BlankSort:
         scoreList = list(map(list, wordScores.items()))
         scoreList = sorted(scoreList, key=lambda x: x[1])
         return scoreList
+
+    def getVector(self, word):
+        return self.__model.getVector(word)
