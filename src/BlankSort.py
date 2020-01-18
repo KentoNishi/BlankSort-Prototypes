@@ -90,7 +90,32 @@ class BlankSort:
         self.__similarityDict[(wordB + " " + wordA)] = similarityScore
         return similarityScore
 
-    def rank(self, text, listSize=5, similarityThreshold=0.7):
+    def __filterResults(self, scoreList, posTags, listSize, similarityThreshold):
+        finalList = []
+        index = 0
+        while index < len(scoreList) and len(finalList) < listSize:
+            if (
+                posTags[scoreList[index][0]][:2] == "NN"
+                or posTags[scoreList[index][0]][:2] == "JJ"
+            ):
+                canAdd = True
+                for word in finalList:
+                    if (
+                        self.getSimilarity(word, scoreList[index][0])
+                        > similarityThreshold
+                    ):
+                        canAdd = False
+                        break
+                if canAdd:
+                    finalList.append(scoreList[index][0])
+            index += 1
+        return finalList
+
+    def rank(self, text, **args):
+        listSize = args["listSize"] if "listSize" in args else 5
+        similarityThreshold = (
+            args["similarityThreshold"] if "similarityThreshold" in args else 0.7
+        )
         tokens, posTags = self.__cleanText(text)
         # dictionary = self.__buildDictionary(tokens)
         wordCounts = self.__countWords(tokens)
@@ -111,25 +136,7 @@ class BlankSort:
                 wordScores[tokens[i]] = min(wordScores[tokens[i]], wordScore)
         scoreList = list(map(list, wordScores.items()))
         scoreList = sorted(scoreList, key=lambda x: x[1])
-        finalList = []
-        index = 0
-        while index < len(scoreList) and len(finalList) < listSize:
-            if (
-                posTags[scoreList[index][0]][:2] == "NN"
-                or posTags[scoreList[index][0]][:2] == "JJ"
-            ):
-                canAdd = True
-                for word in finalList:
-                    if (
-                        self.getSimilarity(word, scoreList[index][0])
-                        > similarityThreshold
-                    ):
-                        canAdd = False
-                        break
-                if canAdd:
-                    finalList.append(scoreList[index][0])
-            index += 1
-        return finalList
+        return self.__filterResults(scoreList, posTags, listSize, similarityThreshold)
 
     def getVector(self, word):
         return self.__model.getVector(word)
