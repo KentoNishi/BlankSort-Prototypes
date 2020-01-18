@@ -44,15 +44,18 @@ class BlankSort:
             )
         )
 
-    def __cleanText(self, text):
+    def cleanText(self, text):
         text = text.lower()
         tokens = nltk.word_tokenize(text)
         tokens = [word for word in tokens if word.isalpha()]
         tokens = [word.strip() for word in tokens]
-        posTagList = nltk.pos_tag(tokens)
         lemmatizedWords = (
             tokens  # [self.__lemmatizer.lemmatize(word) for word in tokens]
         )
+        return lemmatizedWords
+
+    def processText(self, text):
+        tokens = lemmatizedWords = self.cleanText(text)
         stemmedWords = [
             token
             for token in lemmatizedWords
@@ -60,6 +63,7 @@ class BlankSort:
             and self.__stemmer.stem(token) not in self.__stops
             # and self.__model.inVocab(token)
         ]
+        posTagList = nltk.pos_tag(tokens)
         posTags = dict()
         for word in posTagList:
             posTags[word[0]] = word[1]
@@ -114,9 +118,9 @@ class BlankSort:
     def rank(self, text, **args):
         listSize = args["listSize"] if "listSize" in args else 5
         similarityThreshold = (
-            args["similarityThreshold"] if "similarityThreshold" in args else 0.7
+            args["similarityThreshold"] if "similarityThreshold" in args else 0.75
         )
-        tokens, posTags = self.__cleanText(text)
+        tokens, posTags = self.processText(text)
         # dictionary = self.__buildDictionary(tokens)
         wordCounts = self.__countWords(tokens)
         scores = np.zeros(len(tokens))

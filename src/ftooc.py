@@ -60,7 +60,8 @@ class FTOOC:
         if wordVector.any():
             return wordVector / max(1, ngramsFound)
         else:
-            raise KeyError("all ngrams for word " + searchToken + " absent from model")
+            return np.random.rand(300) * 2 - 1
+            # raise KeyError("all ngrams for word " + searchToken + " absent from model")
 
     def getVector(self, searchToken):
         if searchToken in self.__savedVectors or self.inVocab(searchToken):
