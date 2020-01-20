@@ -1,6 +1,6 @@
 import os
 import re
-
+import time
 
 class Algo:
     truePositives = 0
@@ -9,6 +9,7 @@ class Algo:
     falseNegatives = 0
     total = 0
     iteration = 0
+    timeSum=0.0
 
     def __init__(self, algoName, dataName):
         self.algoName = algoName
@@ -17,7 +18,10 @@ class Algo:
     def runAlgo(self, inputString, answerKey, algoWrapper, allPaths):
         maxScore = len(answerKey)
         wordCount = len(re.findall(r"\w+", inputString))
-        ranked = set(algoWrapper.rank(inputString, listSize=maxScore))
+        start = time.process_time()
+        ranked=algoWrapper.rank(inputString, listSize=maxScore)
+        self.timeSum+=time.process_time()-start
+        ranked = set(ranked)
         truePositive = len(answerKey & ranked)
         falsePositive = 0
         falseNegative = 0
@@ -44,4 +48,5 @@ class Algo:
         print("Precision:", precision)
         print("Recall:", recall)
         print("F1 Score:", f1Score)
+        print("Average Time (ms):", self.timeSum / len(allPaths))
         print()
