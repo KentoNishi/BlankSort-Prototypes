@@ -12,11 +12,10 @@ class Algo:
     iteration = 0
     timeSum = 0.0
 
-    def __init__(self, algoName, dataName):
+    def __init__(self, algoName):
         self.algoName = algoName
-        self.dataName = dataName
 
-    def runAlgo(self, inputString, answerKey, algoWrapper, allPaths):
+    def runAlgo(self, dataName, inputString, answerKey, algoWrapper, allPaths):
         maxScore = len(answerKey)
         wordCount = len(re.findall(r"\w+", inputString))
         start = time.process_time()
@@ -43,11 +42,16 @@ class Algo:
         recall = self.truePositives / (self.truePositives + self.falseNegatives)
         f1Score = 2 * (precision * recall) / (precision + recall)
         self.iteration += 1
-        print(self.dataName + " Dataset (" + self.algoName + "):")
-        print("Iteration:", self.iteration, "/", len(allPaths))
-        # print("Accuracy:",accuracy)
-        print("Precision:", precision)
-        print("Recall:", recall)
-        print("F1 Score:", f1Score)
-        print("Average Time (ms):", 1000 * self.timeSum / self.iteration)
-        print()
+        outputString = ""
+        outputString += dataName + " Dataset (" + self.algoName + "):" + "\n"
+        outputString += (
+            "Iteration: " + str(self.iteration) + " / " + str(len(allPaths)) + "\n"
+        )
+        outputString += "Precision: " + str(precision) + "\n"
+        outputString += "Recall: " + str(recall) + "\n"
+        outputString += "F1 Score:" + str(f1Score) + "\n"
+        outputString += (
+            "Average Time (ms): " + str(1000 * self.timeSum / self.iteration) + "\n"
+        )
+        outputString += "\n"
+        return outputString
