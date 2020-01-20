@@ -37,21 +37,21 @@ class Algo:
         self.falsePositives += falsePositive
         self.falseNegatives += falseNegative
         self.total += wordCount
-        accuracy = (self.truePositives + self.trueNegatives) / self.total
-        precision = self.truePositives / (self.truePositives + self.falsePositives)
-        recall = self.truePositives / (self.truePositives + self.falseNegatives)
-        f1Score = 2 * (precision * recall) / (precision + recall)
         self.iteration += 1
-        outputString = ""
-        outputString += dataName + " Dataset (" + self.algoName + "):" + "\n"
-        outputString += (
-            "Iteration: " + str(self.iteration) + " / " + str(len(allPaths)) + "\n"
-        )
-        outputString += "Precision: " + str(precision) + "\n"
-        outputString += "Recall: " + str(recall) + "\n"
-        outputString += "F1 Score:" + str(f1Score) + "\n"
-        outputString += (
-            "Average Time (ms): " + str(1000 * self.timeSum / self.iteration) + "\n"
-        )
-        outputString += "\n"
-        return outputString
+        try:
+            accuracy = (self.truePositives + self.trueNegatives) / self.total
+            precision = self.truePositives / (self.truePositives + self.falsePositives)
+            recall = self.truePositives / (self.truePositives + self.falseNegatives)
+            f1Score = 2 * (precision * recall) / (precision + recall)
+            outputString = ""
+            outputString += dataName + " Dataset (" + self.algoName + "):" + "\n"
+            outputString += "Precision: " + str(precision) + "\n"
+            outputString += "Recall: " + str(recall) + "\n"
+            outputString += "F1 Score:" + str(f1Score) + "\n"
+            outputString += (
+                "Average Time (ms): " + str(1000 * self.timeSum / self.iteration) + "\n"
+            )
+            outputString += "\n"
+            return outputString
+        except Exception:
+            return self.algoName + " - skipping output due to missing data\n\n"
