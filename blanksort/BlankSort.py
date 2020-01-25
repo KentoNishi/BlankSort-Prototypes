@@ -144,5 +144,8 @@ class BlankSort:
         scoreList = sorted(scoreList, key=lambda x: x[1])
         return self.__filterResults(scoreList, posTags, listSize, similarityThreshold)
 
+    def loadVector(self, word):
+        self.__model.loadVector(word)
+
     def getVector(self, word):
         return self.__model.getVector(word)

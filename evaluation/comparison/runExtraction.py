@@ -21,6 +21,10 @@ class Algo:
     def runAlgo(self, dataName, inputString, answerKey, algoWrapper, allPaths):
         maxScore = len(answerKey)
         wordCount = len(re.findall(r"\w+", inputString))
+        if self.algoName == "BlankSort":
+            vocab = algoWrapper.cleanText(inputString)
+            for word in vocab:
+                algoWrapper.loadVector(word)
         start = time.process_time()
         ranked = algoWrapper.rank(inputString, listSize=maxScore)
         self.timeSum += time.process_time() - start
