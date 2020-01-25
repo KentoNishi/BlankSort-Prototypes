@@ -20,8 +20,10 @@ class BlankSort:
     __stops = set()
     __similarityDict = dict()
 
-    def __init__(self, binary_path):
+    def __init__(self, binary_path, preloadVectors=False):
         self.__loadData(binary_path)
+        if preloadVectors:
+            self.__model.preloadVectors()
 
     def __loadData(self, binary_path):
         nltk.download("wordnet")

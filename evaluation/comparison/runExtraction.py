@@ -1,6 +1,9 @@
 import os
 import re
 import time
+import glob
+import re
+import math
 
 
 class Algo:
@@ -55,3 +58,12 @@ class Algo:
             return outputString
         except Exception:
             return self.algoName + " - skipping output due to missing data\n\n"
+
+
+def runAlgos(dataName, inputString, answerKey, algoEnvs, allPaths):
+    outputString = ""
+    for i in range(len(algoEnvs)):
+        outputString += algoEnvs[i][0].runAlgo(
+            dataName, inputString, answerKey, algoEnvs[i][1], allPaths
+        )
+    return outputString

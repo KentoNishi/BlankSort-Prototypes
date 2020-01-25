@@ -34,13 +34,23 @@ class FTOOC:
     def inVocab(self, searchToken):
         return searchToken in self.vectorDatabase
 
-    def __loadVectors(self):
+    def preloadVectors(self):
+        print("Vectors are being loaded into memory.")
+        print("Loading may take several minutes.")
+        count = 0
         with open(self.__modelPath, "rb") as infile:
             for line in infile:
                 line_decoded = line.decode("utf-8")
                 word, vec_s = line_decoded.strip().split(" ", 1)
                 vector = np.array([float(v) for v in vec_s.split(" ")])
                 self.vectorDatabase[word] = vector
+                count += 1
+        """
+        for key in self.vectorDatabase.keys():
+            self.__savedVectors[key] = self.vectorDatabase[key]
+            count += 1
+        """
+        print("Loaded " + str(count) + " vectors.")
 
     def __generateNgrams(self, searchToken, minN, maxN):
         ngrams = []
