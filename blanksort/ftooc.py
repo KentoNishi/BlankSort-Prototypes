@@ -17,6 +17,7 @@ class FTOOC:
     __modelPath = ""
     vectorDatabase = dict()
     __savedVectors = dict()
+    saveGeneratedVectors = False
 
     def __init__(self, path):
         self.__modelPath = path
@@ -75,8 +76,10 @@ class FTOOC:
         if searchToken in self.__savedVectors or self.inVocab(searchToken):
             if searchToken not in self.__savedVectors:
                 self.__savedVectors[searchToken] = self.vectorDatabase[searchToken]
-            return self.__savedVectors[searchToken]
-        self.__savedVectors[searchToken] = self.__generateVector(searchToken)
+        else:
+            self.__savedVectors[searchToken] = self.__generateVector(searchToken)
+            if self.saveGeneratedVectors:
+                self.vectorDatabase[searchToken] = self.__savedVectors[searchToken]
         return self.__savedVectors[searchToken]
 
     def similarity(self, a, b):
