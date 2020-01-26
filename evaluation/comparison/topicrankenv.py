@@ -8,7 +8,7 @@ class TopicRankEnv:
         pass
 
     def rank(self, text, **args):
-        self.tr = pke.unsupervised.TopicRankEnv()
+        self.tr = pke.unsupervised.TopicRank()
         listSize = args["listSize"] if "listSize" in args else 5
         self.tr.load_document(input=text, language="en")
         self.tr.candidate_selection()
