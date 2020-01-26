@@ -54,7 +54,7 @@ class Algo:
             outputString += dataName + " Dataset (" + self.algoName + "):" + "\n"
             outputString += "Precision: " + str(precision) + "\n"
             outputString += "Recall: " + str(recall) + "\n"
-            outputString += "F1 Score:" + str(f1Score) + "\n"
+            outputString += "F1 Score: " + str(f1Score) + "\n"
             outputString += (
                 "Average Time (ms): " + str(1000 * self.timeSum / self.iteration) + "\n"
             )
