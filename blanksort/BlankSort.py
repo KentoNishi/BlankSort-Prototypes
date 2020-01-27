@@ -19,6 +19,7 @@ class BlankSort:
     __stemmer = None
     __stops = set()
     __similarityDict = dict()
+    __lemmatizedDict = dict()
 
     def __init__(self, binary_path, preloadVectors=False, saveGeneratedVectors=False):
         self.__loadData(binary_path)
@@ -47,14 +48,18 @@ class BlankSort:
             )
         )
 
+    def lemmatize(self, word):
+        if word in self.__lemmatizedDict:
+            return self.__lemmatizedDict[word]
+        self.__lemmatizedDict[word] = self.__lemmatizer.lemmatize(word)
+        return self.__lemmatizedDict[word]
+
     def cleanText(self, text):
         text = text.lower()
         tokens = nltk.word_tokenize(text)
-        tokens = [word for word in tokens if word.isalpha()]
         tokens = [word.strip() for word in tokens]
-        lemmatizedWords = (
-            tokens  # [self.__lemmatizer.lemmatize(word) for word in tokens]
-        )
+        tokens = [word for word in tokens if len(word) > 1 and word.isalpha()]
+        lemmatizedWords = [self.lemmatize(word) for word in tokens]
         return lemmatizedWords
 
     def processText(self, text):
