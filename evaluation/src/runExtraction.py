@@ -27,7 +27,10 @@ class Algo:
             for word in vocab:
                 self.algoWrapper.loadVector(word)
         start = time.process_time()
+        #try:
         ranked = self.algoWrapper.rank(inputString, listSize=maxScore)
+        #except Exception:
+        #    return self.algoName + " -  skipping due to unknown error\n\n"
         self.timeSum += time.process_time() - start
         ranked = set(ranked)
         truePositive = len(answerKey & ranked)
@@ -66,10 +69,7 @@ class Algo:
 
 
 def runAlgos(dataName, inputString, answerKey, algoEnvs):
-    try:
-        outputString = ""
-        for algo in algoEnvs:
-            outputString += algo.runAlgo(dataName, inputString, answerKey)
-        return outputString
-    except Exception:
-        return "Skipping due to compatibility issues"
+    outputString = ""
+    for algo in algoEnvs:
+        outputString += algo.runAlgo(dataName, inputString, set(answerKey))
+    return outputString
