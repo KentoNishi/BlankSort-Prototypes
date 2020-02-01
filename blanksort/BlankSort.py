@@ -19,9 +19,13 @@ class BlankSort:
     __stemmer = None
     __stops = set()
     __similarityDict = dict()
+    __lemmatizedDict = dict()
 
-    def __init__(self, binary_path):
+    def __init__(self, binary_path, preloadVectors=False, saveGeneratedVectors=False):
         self.__loadData(binary_path)
+        if preloadVectors:
+            self.__model.preloadVectors()
+        self.__model.saveGeneratedVectors = saveGeneratedVectors
 
     def __loadData(self, binary_path):
         nltk.download("wordnet")
@@ -44,14 +48,19 @@ class BlankSort:
             )
         )
 
+    def lemmatize(self, word):
+        if word in self.__lemmatizedDict:
+            return self.__lemmatizedDict[word]
+        self.__lemmatizedDict[word] = self.__lemmatizer.lemmatize(word)
+        return self.__lemmatizedDict[word]
+
     def cleanText(self, text):
         text = text.lower()
         tokens = nltk.word_tokenize(text)
-        tokens = [word for word in tokens if word.isalpha()]
         tokens = [word.strip() for word in tokens]
-        lemmatizedWords = (
-            tokens  # [self.__lemmatizer.lemmatize(word) for word in tokens]
-        )
+        tokens = [word for word in tokens if len(word) > 1 and word.isalpha()]
+        lemmatizedWords = [self.lemmatize(word) for word in tokens]
+        lemmatizedWords = [word for word in lemmatizedWords if word not in self.__stops]
         return lemmatizedWords
 
     def processText(self, text):
@@ -141,6 +150,9 @@ class BlankSort:
         scoreList = list(map(list, wordScores.items()))
         scoreList = sorted(scoreList, key=lambda x: x[1])
         return self.__filterResults(scoreList, posTags, listSize, similarityThreshold)
+
+    def loadVector(self, word):
+        self.__model.loadVector(word)
 
     def getVector(self, word):
         return self.__model.getVector(word)

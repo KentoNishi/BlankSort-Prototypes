@@ -17,6 +17,7 @@ class FTOOC:
     __modelPath = ""
     vectorDatabase = dict()
     __savedVectors = dict()
+    saveGeneratedVectors = False
 
     def __init__(self, path):
         self.__modelPath = path
@@ -25,8 +26,8 @@ class FTOOC:
         )
         print("Database path: " + databasePath)
         self.vectorDatabase = SqliteDict(databasePath, autocommit=True)
-        if not os.path.isfile(databasePath):
-            self.__loadVectors()
+        if not os.path.exists(databasePath):
+            self.preloadVectors()
 
     def __cos_sim(self, a, b):
         return (1 + dot(a, b) / (norm(a) * norm(b))) / 2.0
@@ -34,13 +35,21 @@ class FTOOC:
     def inVocab(self, searchToken):
         return searchToken in self.vectorDatabase
 
-    def __loadVectors(self):
-        with open(self.__modelPath, "rb") as infile:
-            for line in infile:
-                line_decoded = line.decode("utf-8")
-                word, vec_s = line_decoded.strip().split(" ", 1)
-                vector = np.array([float(v) for v in vec_s.split(" ")])
-                self.vectorDatabase[word] = vector
+    def loadVector(self, word):
+        try:
+            if word not in self.__savedVectors:
+                self.__savedVectors[word] = self.vectorDatabase[word]
+        except Exception:
+            pass
+
+    def preloadVectors(self):
+        print("Vectors are being loaded into memory.")
+        print("Loading may take a while.")
+        count = 0
+        for key in self.vectorDatabase.keys():
+            self.__savedVectors[key] = self.vectorDatabase[key]
+            count += 1
+        print("Loaded " + str(count) + " vectors.")
 
     def __generateNgrams(self, searchToken, minN, maxN):
         ngrams = []
@@ -67,8 +76,10 @@ class FTOOC:
         if searchToken in self.__savedVectors or self.inVocab(searchToken):
             if searchToken not in self.__savedVectors:
                 self.__savedVectors[searchToken] = self.vectorDatabase[searchToken]
-            return self.__savedVectors[searchToken]
-        self.__savedVectors[searchToken] = self.__generateVector(searchToken)
+        else:
+            self.__savedVectors[searchToken] = self.__generateVector(searchToken)
+            if self.saveGeneratedVectors:
+                self.vectorDatabase[searchToken] = self.__savedVectors[searchToken]
         return self.__savedVectors[searchToken]
 
     def similarity(self, a, b):
