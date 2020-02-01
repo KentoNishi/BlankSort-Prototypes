@@ -60,6 +60,7 @@ class BlankSort:
         tokens = [word.strip() for word in tokens]
         tokens = [word for word in tokens if len(word) > 1 and word.isalpha()]
         lemmatizedWords = [self.lemmatize(word) for word in tokens]
+        lemmatizedWords = [word for word in lemmatizedWords if word not in self.__stops]
         return lemmatizedWords
 
     def processText(self, text):
