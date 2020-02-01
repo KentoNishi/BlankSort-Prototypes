@@ -17,17 +17,17 @@ class Algo:
 
     def __init__(self, algoName, env):
         self.algoName = algoName
-        self.env = env
+        self.algoWrapper = env
 
-    def runAlgo(self, dataName, inputString, answerKey, algoWrapper, allPaths):
+    def runAlgo(self, dataName, inputString, answerKey):
         maxScore = len(answerKey)
         wordCount = len(re.findall(r"\w+", inputString))
         if self.algoName == "BlankSort":
-            vocab = algoWrapper.cleanText(inputString)
+            vocab = self.algoWrapper.cleanText(inputString)
             for word in vocab:
-                algoWrapper.loadVector(word)
+                self.algoWrapper.loadVector(word)
         start = time.process_time()
-        ranked = algoWrapper.rank(inputString, listSize=maxScore)
+        ranked = self.algoWrapper.rank(inputString, listSize=maxScore)
         self.timeSum += time.process_time() - start
         ranked = set(ranked)
         truePositive = len(answerKey & ranked)
@@ -65,10 +65,11 @@ class Algo:
             return self.algoName + " - skipping output due to missing data\n\n"
 
 
-def runAlgos(dataName, inputString, answerKey, algoEnvs, allPaths):
-    outputString = ""
-    for i in range(len(algoEnvs)):
-        outputString += algoEnvs[i][0].runAlgo(
-            dataName, inputString, answerKey, algoEnvs[i][1], allPaths
-        )
-    return outputString
+def runAlgos(dataName, inputString, answerKey, algoEnvs):
+    try:
+        outputString = ""
+        for algo in algoEnvs:
+            outputString += algo.runAlgo(dataName, inputString, answerKey)
+        return outputString
+    except Exception:
+        return "Skipping due to compatibility issues"
