@@ -15,8 +15,9 @@ class Algo:
     iteration = 0
     timeSum = 0.0
 
-    def __init__(self, algoName):
+    def __init__(self, algoName, env):
         self.algoName = algoName
+        self.env = env
 
     def runAlgo(self, dataName, inputString, answerKey, algoWrapper, allPaths):
         maxScore = len(answerKey)
