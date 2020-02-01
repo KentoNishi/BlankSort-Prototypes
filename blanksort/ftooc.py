@@ -26,8 +26,8 @@ class FTOOC:
         )
         print("Database path: " + databasePath)
         self.vectorDatabase = SqliteDict(databasePath, autocommit=True)
-        if not os.path.isfile(databasePath):
-            self.__loadVectors()
+        if not os.path.exists(databasePath):
+            self.preloadVectors()
 
     def __cos_sim(self, a, b):
         return (1 + dot(a, b) / (norm(a) * norm(b))) / 2.0
