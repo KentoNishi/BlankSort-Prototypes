@@ -2,7 +2,6 @@ import os
 import re
 import numpy as np
 import nltk
-import operator
 from ftooc import *
 import time
 
