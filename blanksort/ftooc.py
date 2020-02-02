@@ -7,6 +7,7 @@ from sqlitedict import SqliteDict
 
 
 class FTOOC:
+    """FastText Out Of Core class"""
 
     __modelPath = ""
     vectorDatabase = dict()
