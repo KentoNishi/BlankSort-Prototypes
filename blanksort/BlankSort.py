@@ -124,7 +124,6 @@ class BlankSort:
             args["similarityThreshold"] if "similarityThreshold" in args else 0.75
         )
         tokens, posTags = self.processText(text)
-        # dictionary = self.__buildDictionary(tokens)
         wordCounts = self.__countWords(tokens)
         scores = np.zeros(len(tokens))
         wordScores = dict()
