@@ -1,15 +1,9 @@
-# https://github.com/codingMJ/Using-pretrained-FastText-model/blob/master/search%20wordVectortors%20model%20(out-of-core).py
-from gensim.models.wrappers import FastText
-from gensim.matutils import cossim
 import numpy as np
 from numpy import dot
 from numpy.linalg import norm
 import os
 from numpy import dot
-from numpy.linalg import norm
-from operator import itemgetter
 from sqlitedict import SqliteDict
-import time
 
 
 class FTOOC:

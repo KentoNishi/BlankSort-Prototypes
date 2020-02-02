@@ -1,11 +1,8 @@
 import os
 import re
-from gensim.models import fasttext as ft
 import numpy as np
 import nltk
 import operator
-import nltk
-from dataclasses import dataclass
 from ftooc import *
 import time
 
@@ -94,9 +91,7 @@ class BlankSort:
     def getSimilarity(self, wordA, wordB):
         similarityScore = 0.0
         if (wordA + " " + wordB) not in self.__similarityDict:
-            # start = time.process_time()
             similarityScore = self.__model.similarity(wordA, wordB)
-            # print(time.process_time() - start)
         else:
             similarityScore = self.__similarityDict[(wordA + " " + wordB)]
         self.__similarityDict[(wordA + " " + wordB)] = similarityScore
