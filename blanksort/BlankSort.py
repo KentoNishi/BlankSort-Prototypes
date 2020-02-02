@@ -119,29 +119,68 @@ class BlankSort:
         return finalList
 
     def rank(self, text, **args):
+        """
+        Extracts keywords from the given text.
+
+        Parameters
+        ----------
+        text : str
+            The input text.
+
+        listSize : int, optional
+            The number of keywords to extract.
+
+        Returns
+        -------
+        list
+            A list of strings, which are keywords.
+        """
+        # defaults to selecting top 5 keywords
         listSize = args["listSize"] if "listSize" in args else 5
+        # sets default similarity removal threshold to 0.75
         similarityThreshold = (
             args["similarityThreshold"] if "similarityThreshold" in args else 0.75
         )
+        # processes text and generates tokens (words)
+        # and position tags (noun, verb, adjective, etc.)
         tokens, posTags = self.processText(text)
+        # counts the number of occurrences of each word
         wordCounts = self.__countWords(tokens)
+        # initializes local word scores array to zeros
         scores = np.zeros(len(tokens))
+        # creates a dictionary to hold global word scores
         wordScores = dict()
+        # for each word in the input text
         for i in range(len(tokens)):
+            # find left boundary based on the window size
             leftBound = max(0, i - self.__windowSize)
+            # find right boundary based on the window size
             rightBound = min(len(tokens) - 1, i + self.__windowSize)
+            # calculate the total context size
             contextSize = rightBound - leftBound + 1
+            # for each word in the right window
             for j in range(i + 1, rightBound + 1):
+                # calculate the similarity score
                 similarityScore = self.getSimilarity(tokens[i], tokens[j])
+                # add the score to this word and the other word
                 scores[i] += similarityScore
                 scores[j] += similarityScore
+            # average the word score and scale it inversely by the
+            # number of occurrences of this word
             wordScore = scores[i] / (wordCounts[tokens[i]] * contextSize)
+            # if the word does not yet have a global word score
             if tokens[i] not in wordScores:
+                # store the word score
                 wordScores[tokens[i]] = wordScore
+            # if the global word score has been assigned previously
             else:
+                # set the global word score to the minimum local word score
                 wordScores[tokens[i]] = min(wordScores[tokens[i]], wordScore)
+        # convert the dictionary to a list
         scoreList = list(map(list, wordScores.items()))
+        # sort the list of candidate keywords
         scoreList = sorted(scoreList, key=lambda x: x[1])
+        # filter out results that are too similar and return the keywords
         return self.__filterResults(scoreList, posTags, listSize, similarityThreshold)
 
     def loadVector(self, word):
