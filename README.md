@@ -2,7 +2,6 @@
 A Novel Unsupervised Approach to Keyword Extraction
 
 ## Sections
-
 1. [Proposal](#Proposal)
 1. [Definitions](#Definitions)
 1. [Inspiration and Approach](#Inspiration-And-Approach)
@@ -46,6 +45,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 | Word vector       | A pre-trained vector representation of a word. |
 | Cosine similarity | A function that calculates the similarity of two word vectors. Values are in the range `[-1,1]`, where 1 is the maximum similarity and -1 is the minimum. |
 
+
 ## Inspiration and Approach
 * In most languages including English, text is extremely sparse – the number of keywords is very small in comparison to the total number of words in the document.
 * In sparse texts, words that are important in their paragraph and sentence are also important to the entire document. 
@@ -57,7 +57,6 @@ A Novel Unsupervised Approach to Keyword Extraction
     1. After pre-processing, each word in the text is taken as a target word along with its context (`±K` words around the target, where `K` is typically 3) to evaluate its uniqueness score. 
     1. The uniqueness score is measured based on the average cosine similarity between the word and its context words.
     1. Sorting the words by uniqueness score yields a list of words sorted by their importance.
-
 
 
 ## Algorithm
@@ -74,6 +73,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 * Figure 1.6
 	* The specified number of words with the lowest average similarity scores are selected.
 
+
 ## Evaluation and Metrics
 * Lemmatized variants of Inspec, DUC, and NUS datasets
     * Inspec: 2000 abstracts from scientific journals
@@ -88,11 +88,12 @@ A Novel Unsupervised Approach to Keyword Extraction
         * TextRank
         * TopicRank
 
+
 ## Results
 
 ### Inspec Dataset
 
-| Algorithm        | Precisision                   | Recall | F1    | Time (ms) |
+| Algorithm        | Precision                     | Recall | F1    | Time (ms) |
 |------------------|-------------------------------|------- |-------|---------- |
 | BlankSort        | 0.501                         | 0.484  | 0.492 | 9.359     |
 | MultipartiteRank | 0.442                         | 0.39   | 0.414 | 508.516   |
@@ -102,7 +103,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 
 ### DUC Dataset
 
-| Algorithm        | Precisision                   | Recall | F1    | Time (ms) |
+| Algorithm        | Precision                     | Recall | F1    | Time (ms) |
 |------------------|-------------------------------|------- |-------|---------- |
 | BlankSort        | 0.39                          | 0.387  | 0.389 | 36.475    |
 | MultipartiteRank | 0.383                         | 0.25   | 0.365 | 782.064   |
@@ -112,7 +113,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 
 ### NUS Dataset
 
-| Algorithm        | Precisision                   | Recall | F1    | Time (ms) |
+| Algorithm        | Precision                     | Recall | F1    | Time (ms) |
 |------------------|-------------------------------|------- |-------|---------- |
 | BlankSort        | 0.318                         | 0.318  | 0.318 | 286.357   |
 | MultipartiteRank | 0.287                         | 0.266  | 0.276 | 7380.03   |
