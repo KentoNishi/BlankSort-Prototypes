@@ -7,7 +7,8 @@ A Novel Unsupervised Approach to Keyword Extraction
 1. [Definitions](#Definitions)
 1. [Inspiration and Approach](#Inspiration-And-Approach)
 1. [Algorithm](#Algorithm)
-1. [Evaluation](#Evaluation)
+1. [Evaluation and Metrics](#Evaluation-and-Metrics)
+1. [Results](#Results)
 
 
 ## Proposal
@@ -73,7 +74,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 * Figure 1.6
 	* The specified number of words with the lowest average similarity scores are selected.
 
-## Evaluation
+## Evaluation and Metrics
 * Lemmatized variants of Inspec, DUC, and NUS datasets
     * Inspec: 2000 abstracts from scientific journals
         * Anette Hulth (2003)
@@ -87,3 +88,34 @@ A Novel Unsupervised Approach to Keyword Extraction
         * TextRank
         * TopicRank
 
+## Results
+
+### Inspec Dataset
+
+| Algorithm        | Precisision                   | Recall | F1    | Time (ms) |
+|------------------|-------------------------------|------- |-------|---------- |
+| BlankSort        | 0.501                         | 0.484  | 0.492 | 9.359     |
+| MultipartiteRank | 0.442                         | 0.39   | 0.414 | 508.516   |
+| RAKE             | 0.388                         | 0.321  | 0.351 | 0.641     |
+| TextRank         | 0.431                         | 0.337  | 0.378 | 31.586    |
+| TopicRank        | 0.429                         | 0.403  | 0.416 | 504.938   |
+
+### DUC Dataset
+
+| Algorithm        | Precisision                   | Recall | F1    | Time (ms) |
+|------------------|-------------------------------|------- |-------|---------- |
+| BlankSort        | 0.39                          | 0.387  | 0.389 | 36.475    |
+| MultipartiteRank | 0.383                         | 0.25   | 0.365 | 782.064   |
+| RAKE             | 0.116                         | 0.111  | 0.114 | 2.892     |
+| TextRank         | 0.325                         | 0.236  | 0.274 | 153.916   |
+| TopicRank        | 0.355                         | 0.339  | 0.346 | 704.55    |
+
+### NUS Dataset
+
+| Algorithm        | Precisision                   | Recall | F1    | Time (ms) |
+|------------------|-------------------------------|------- |-------|---------- |
+| BlankSort        | 0.318                         | 0.318  | 0.318 | 286.357   |
+| MultipartiteRank | 0.287                         | 0.266  | 0.276 | 7380.03   |
+| RAKE             | 0.044                         | 0.038  | 0.041 | 24.924    |
+| TextRank         | 0.275                         | 0.195  | 0.228 | 1516.616  |
+| TopicRank        | 0.239                         | 0.229  | 0.234 | 5686.509  |
