@@ -44,20 +44,20 @@ A Novel Unsupervised Approach to Keyword Extraction
 | Context           | A set of words that surround a target word that are within a constant number of tokens away. |
 | Contexts          | The set of all pairs of target words and their contexts. |
 | Word vector       | A pre-trained vector representation of a word. |
-| Cosine similarity | A function that calculates the similarity of two word vectors. Values are in the range [-1,1], where 1 is the maximum similarity and -1 is the minimum. |
+| Cosine similarity | A function that calculates the similarity of two word vectors. Values are in the range `[-1,1]`, where 1 is the maximum similarity and -1 is the minimum. |
 
 ## Inspiration and Approach
-* In most languages such as English, text is extremely sparse – the number of keywords is very small in comparison to the total number of words in the document.
-* In sparse texts, words that are important to the entire document are also important in their paragraph and sentence.
-    * For example, if the word “algorithm” is important in a document, the surrounding sentence or paragraph most likely discusses algorithms.
-* Paragraphs and sentences can be broken down into “contexts”, with the word in the center of the window being the “target word”.
-* Because the document is sparse, the contexts are also sparse – therefore, each small context likely contains at most one keyword.
-* The most important word in each context can be determined by finding the most unique word.
-* The uniqueness of a target word can be determined by measuring how much the word stands out from its surrounding words.
-* If a word stands out from the rest, it must be difficult to “guess” when given the surrounding words.
-* Therefore, the uniqueness of a word answers the question: “How difficult is it to guess the target word, given only its context words?”
-* Every target word can be assigned a “uniqueness score”, which measures its uniqueness based on the average cosine similarity between the word and its context words.
-* Sorting the words by uniqueness score in ascending order yields a list of words sorted by their importance.
+* In most languages including English, text is extremely sparse – the number of keywords is very small in comparison to the total number of words in the document.
+* In sparse texts, words that are important in their paragraph and sentence are also important to the entire document. 
+* When a word is important, it is unique and stands out from the rest. Thus, the goal of the keyword extraction is to find the most unique word in each paragraph or sentence. 
+* When a word is unique, "blanking" the word and predicting the original word is difficult. This is the fundamental concept of the BlankSort algorithm.
+* By calculating the difficulty of predicting every "blanked out" word, BlankSort can sort the words in the document by their importance.
+* General flow of the BlankSort Algorithm:
+    1. The input text is pre-processed. Stop words, punctuation marks, and capitalizations are discarded.
+    1. After pre-processing, each word in the text is taken as a target word along with its context (`±K` words around the target, where `K` is typically 3) to evaluate its uniqueness score. 
+    1. The uniqueness score is measured based on the average cosine similarity between the word and its context words.
+    1. Sorting the words by uniqueness score yields a list of words sorted by their importance.
+
 
 
 ## Algorithm
