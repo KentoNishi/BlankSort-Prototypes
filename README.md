@@ -11,6 +11,13 @@ A Novel Unsupervised Approach to Keyword Extraction
 
 
 ## Proposal
+<details>
+    <summary>Full Abstract</summary>
+
+Keyword extraction is used for tasks such as web searching, article tagging, text categorization, and other text analysis tasks. Currently, the most widely used algorithms are statistical models, graph-based models, supervised machine learning models, or unsupervised machine learning models. These four categories of algorithms all have specific strengths and weaknesses – statistical approaches are fast but inaccurate, graph-based approaches provide high accuracy but lack the understanding of language, supervised learning comprehends language but requires vast amounts of human labeled training data, and unsupervised learning does not use manually labeled data but requires a new model to be trained for every new document. BlankSort proposes a novel unsupervised approach to keyword extraction that merges the speed of statistical models, the accuracy of graph-based algorithms, the language comprehension of supervised models, and the label-independent training of unsupervised models. BlankSort employs word vectors and contextual weighting of words in close proximity to calculate the “irrelevancy score” of each word, resulting in a sorted list of the most important words present in any document. In comparison to popular algorithms such as TextRank, TopicRank, RAKE, and MultipartiteRank, BlankSort displays comparable or state-of-the-art performance on lemmatized versions of the Inspec, DUC, and NUS datasets commonly utilized in model evaluation. Four metrics, namely precision, recall, f-score, and execution time were used to measure the performance of the models, and BlankSort exhibits consistently competitive or higher scores than the state-of-the-art algorithms that exist today.
+
+</details>
+
 * Keyword extraction is useful for web searching, article tagging, text categorization, and other text processing tasks.
 * Current approaches can be categorized into three types:
     * Statistical – extremely fast but low accuracy
