@@ -8,6 +8,8 @@ A Novel Unsupervised Approach to Keyword Extraction
 1. [Algorithm](#Algorithm)
 1. [Evaluation and Metrics](#Evaluation-and-Metrics)
 1. [Results](#Results)
+1. [Conclusion and Discussion](#Conclusion-and-Discussion)
+1. [Package and Source Code](#Package-and-Source-Code)
 
 
 ## Proposal
@@ -145,5 +147,33 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 | NUS      | ![](./images/charts/NUSPerformance.svg)    | ![](./images/charts/NUSTime.svg)    |
 
 ## Conclusion and Discussion
+
+### Interpretation of Data
 * BlankSort clearly outperforms current state-of-the-art algorithms in single keyword extraction.
-* The algorithm can be improved for real-world deployments by implementing multi-word keyphrases.
+    * BlankSort performs consistently well across the Inspec, DUC, and NUS datasets.
+    * BlankSort executes significantly faster than previous approaches (excluding RAKE, which suffers from low performance).
+
+### Future Work
+* Implementing multi-word keyphrase extraction by collapsing nearby keywords
+* Changing hyperparameters (ex. window size) and optimizing word vectors 
+* Rewriting code in a compiled language (ex. C/C++) for better performance
+
+## Package and Source Code
+
+The source code of the BlankSort Python module is available at [KentoNishi/BlankSort](https://github.com/KentoNishi/BlankSort) on GitHub.
+
+The package is hosted on the Python Package Index, so the library can be installed using the following command:
+
+```shell
+pip install blanksort
+```
+
+Documentation for the BlankSort Python package is available at the repository's [GitHub Wiki Page](https://github.com/KentoNishi/BlankSort/wiki).
+
+Additionaly, all development versions and prototypes of BlankSort can be found at [KentoNishi/BlankSortPrototypes](https://github.com/KentoNishi/BlankSortPrototypes) on GitHub.
+
+## References
+
+```
+TODO
+```
