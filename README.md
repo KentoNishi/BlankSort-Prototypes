@@ -9,16 +9,18 @@ A Novel Unsupervised Approach to Keyword Extraction
 1. [Evaluation and Metrics](#evaluation-and-metrics)
 1. [Results](#results)
 1. [Conclusion and Discussion](#conclusion-and-discussion)
-1. [Package and Source Code](#package-and-source-code)
 
 
 ## Proposal
-<details>
-    <summary>Full Abstract</summary>
+<details style="margin-bottom:20px;">
+    <summary>View Full Abstract</summary>
+
 
 Keyword extraction is used for tasks such as web searching, article tagging, text categorization, and other text analysis tasks. Currently, the most widely used algorithms are statistical models, graph-based models, supervised machine learning models, or unsupervised machine learning models. These four categories of algorithms all have specific strengths and weaknesses – statistical approaches are fast but inaccurate, graph-based approaches provide high accuracy but lack the understanding of language, supervised learning comprehends language but requires vast amounts of human labeled training data, and unsupervised learning does not use manually labeled data but requires a new model to be trained for every new document. BlankSort proposes a novel unsupervised approach to keyword extraction that merges the speed of statistical models, the accuracy of graph-based algorithms, the language comprehension of supervised models, and the label-independent training of unsupervised models. BlankSort employs word vectors and contextual weighting of words in close proximity to calculate the “irrelevancy score” of each word, resulting in a sorted list of the most important words present in any document. In comparison to popular algorithms such as TextRank, TopicRank, RAKE, and MultipartiteRank, BlankSort displays comparable or state-of-the-art performance on lemmatized versions of the Inspec, DUC, and NUS datasets commonly utilized in model evaluation. Four metrics, namely precision, recall, f-score, and execution time were used to measure the performance of the models, and BlankSort exhibits consistently competitive or higher scores than the state-of-the-art algorithms that exist today.
 
+
 </details>
+
 
 * Keyword extraction is useful for web searching, article tagging, text categorization, and other text processing tasks.
 * Current approaches can be categorized into three types:
@@ -45,8 +47,9 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 
 ## Definitions
+
 | Term              | Definition                         |
-|:-----------------:|:----------------------------------:|
+|-------------------|------------------------------------|
 | Tokens            | An ordered list of filtered words. |
 | Target word       | A word that is potentially a keyword. |
 | Context           | A set of words that surround a target word that are within a constant number of tokens away. |
@@ -106,10 +109,11 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 ## Results
 
 
-<details>
-    <summary>Full Data</summary>
+<details style="margin-bottom:20px;">
+    <summary>View Full Data</summary>
 
 ### Inspec Dataset
+
 | Algorithm        | Precision                     | Recall | F1    | Time (ms) |
 |------------------|-------------------------------|------- |-------|---------- |
 | BlankSort        | 0.501                         | 0.484  | 0.492 | 9.359     |
@@ -140,6 +144,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 </details>
 
+
 | Dataset  | Performance (higher is better)             | Execution Time (lower is better)    |
 | :------: | :----------------------------------------: | :---------------------------------: |
 | Inspec   | ![](./images/charts/InspecPerformance.svg) | ![](./images/charts/InspecTime.svg) |
@@ -158,38 +163,8 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 * Changing hyperparameters (ex. window size) and optimizing word vectors 
 * Rewriting code in a compiled language (ex. C/C++) for better performance
 
-## Package and Source Code
-
-The source code of the BlankSort Python module is available at [KentoNishi/BlankSort](https://github.com/KentoNishi/BlankSort) on GitHub.
-
-The package is hosted on the Python Package Index, so the library can be installed using the following command:
-
-```shell
-pip install blanksort
-```
-
-Documentation for the BlankSort Python package is available at the repository's [GitHub Wiki Page](https://github.com/KentoNishi/BlankSort/wiki).
-
-Additionaly, all development versions and prototypes of BlankSort can be found at [KentoNishi/BlankSortPrototypes](https://github.com/KentoNishi/BlankSortPrototypes) on GitHub.
-
 ## References
 
 ```
 TODO
 ```
-
-<div style="display:none;">
-    <style>
-        body{
-            background-color: #181a1b;
-            color: rgb(193, 188, 179);
-        }
-        .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
-            color: rgb(126, 237, 182);
-        }
-        a {
-            color: rgb(111, 178, 232);
-            text-decoration-color: initial;
-        }
-    </style>
-</div>

@@ -1,1 +1,10 @@
 theme: jekyll-theme-cayman
+title: BlankSort
+description: A Novel Unsupervised Approach to Keyword Extraction
+markdown: CommonMarkGhPages
+commonmark:
+    options: ["SMART", "FOOTNOTES"]
+    extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
