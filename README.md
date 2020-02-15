@@ -2,14 +2,14 @@
 A Novel Unsupervised Approach to Keyword Extraction
 
 ## Sections
-1. [Proposal](#Proposal)
-1. [Definitions](#Definitions)
-1. [Inspiration and Approach](#Inspiration-And-Approach)
-1. [Algorithm](#Algorithm)
-1. [Evaluation and Metrics](#Evaluation-and-Metrics)
-1. [Results](#Results)
-1. [Conclusion and Discussion](#Conclusion-and-Discussion)
-1. [Package and Source Code](#Package-and-Source-Code)
+1. [Proposal](#proposal)
+1. [Definitions](#definitions)
+1. [Inspiration and Approach](#inspiration-and-approach)
+1. [Algorithm](#algorithm)
+1. [Evaluation and Metrics](#evaluation-and-metrics)
+1. [Results](#results)
+1. [Conclusion and Discussion](#conclusion-and-discussion)
+1. [Package and Source Code](#package-and-source-code)
 
 
 ## Proposal
