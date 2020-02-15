@@ -105,6 +105,8 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 ## Results
 
+![Inspec Performance](./images/charts/inspecPerformance.png)
+
 ### Inspec Dataset
 
 | Algorithm        | Precision                     | Recall | F1    | Time (ms) |
@@ -134,3 +136,8 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 | RAKE             | 0.044                         | 0.038  | 0.041 | 24.924    |
 | TextRank         | 0.275                         | 0.195  | 0.228 | 1516.616  |
 | TopicRank        | 0.239                         | 0.229  | 0.234 | 5686.509  |
+
+
+## Conclusion and Discussion
+* BlankSort clearly outperforms current state-of-the-art algorithms in single keyword extraction.
+* The algorithm can be improved for real-world deployments by implementing multi-word keyphrases.
