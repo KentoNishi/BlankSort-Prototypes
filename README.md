@@ -46,7 +46,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 ## Definitions
 | Term              | Definition                         |
-|-------------------|------------------------------------|
+|:-----------------:|:----------------------------------:|
 | Tokens            | An ordered list of filtered words. |
 | Target word       | A word that is potentially a keyword. |
 | Context           | A set of words that surround a target word that are within a constant number of tokens away. |
