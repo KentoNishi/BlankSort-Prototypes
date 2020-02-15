@@ -68,9 +68,13 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 ## Algorithm
 
-| ![Flowchart](./images/flowchart.png) |
-|:--:|
-| **Figure 1** |
+![Flowchart](./images/flowchart.png)
+
+<style>
+img[src="./images/flowchart.png"] {
+    background-color: white;
+}
+</style>
 
 * Figure 1.1
     * The input document is passed to the algorithm.
@@ -84,7 +88,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 	* The similarity scores are averaged for each target word, and the words are sorted by their scores in ascending order.
 * Figure 1.6
 	* The specified number of words with the lowest average similarity scores are selected.
-|
+
 
 
 ## Evaluation and Metrics
