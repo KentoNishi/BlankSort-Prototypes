@@ -69,9 +69,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 ## Algorithm
 
 
-<p align="center">
-    <img src="./images/flowchart.png">
-</p>
+![](./images/charts/flowchart.svg)
 
 * Figure 1.1
     * The input document is passed to the algorithm.
