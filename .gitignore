@@ -7,3 +7,4 @@
 *.zip
 **/.ipynb_checkpoints/*
 **/__pycache__/*
+readme.html
