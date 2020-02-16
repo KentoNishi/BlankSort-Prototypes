@@ -9,6 +9,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 1. [Evaluation and Metrics](#evaluation-and-metrics)
 1. [Results](#results)
 1. [Conclusion and Discussion](#conclusion-and-discussion)
+1. [References](#references)
 
 
 ## Proposal
