@@ -83,7 +83,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 * Figure 1.3
 	* The contexts for each target word are generated.
 * Figure 1.4
-	* Similarity scores are computed for each target word and context word using word vectors. Word vectors are imported from Facebook's pretrained FastText model.
+	* Similarity scores are computed for each target word and context word using word vectors.
 * Figure 1.5
 	* The similarity scores are averaged for each target word, and the words are sorted by their scores in ascending order.
 * Figure 1.6
@@ -92,6 +92,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 
 ## Evaluation and Metrics
+* Word vectors imported from Facebook's FastText model
 * Lemmatized variants of Inspec, DUC, and NUS datasets
     * Inspec: 2000 abstracts from scientific journals
         * Anette Hulth (2003)
