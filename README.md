@@ -83,7 +83,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 * Figure 1.3
 	* The contexts for each target word are generated.
 * Figure 1.4
-	* Similarity scores are computed for each target word and context word using word vectors.
+	* Similarity scores are computed for each target word and context word using word vectors. Word vectors are imported from Facebook's pretrained FastText model.
 * Figure 1.5
 	* The similarity scores are averaged for each target word, and the words are sorted by their scores in ascending order.
 * Figure 1.6
@@ -165,6 +165,12 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 ## References
 
-```
-TODO
-```
+1. Rose, Stuart, et al. "Automatic keyword extraction from individual documents." Text mining: applications and theory 1 (2010): 1-20.
+1. Joulin, Armand, et al. "Bag of tricks for efficient text classification." arXiv preprint arXiv:1607.01759 (2016).
+1. Bojanowski, Piotr, et al. "Enriching word vectors with subword information." Transactions of the Association for Computational Linguistics 5 (2017): 135-146.
+1. Hulth, Anette. "Improved automatic keyword extraction given more linguistic knowledge." Proceedings of the 2003 conference on Empirical methods in natural language processing. Association for Computational Linguistics, 2003.
+1. Nguyen, Thuy Dung, and Min-Yen Kan. "Keyphrase extraction in scientific publications." International conference on Asian digital libraries. Springer, Berlin, Heidelberg, 2007.
+1. Wan, Xiaojun, and Jianguo Xiao. "Single Document Keyphrase Extraction Using Neighborhood Knowledge." AAAI. Vol. 8. 2008.
+1. Mihalcea, Rada, and Paul Tarau. "Textrank: Bringing order into text." Proceedings of the 2004 conference on empirical methods in natural language processing. 2004.
+1. Bougouin, Adrien, Florian Boudin, and Béatrice Daille. "Topicrank: Graph-based topic ranking for keyphrase extraction." 2013.
+1. Boudin, Florian. "Unsupervised keyphrase extraction with multipartite graphs." arXiv preprint arXiv:1803.08721 (2018).
