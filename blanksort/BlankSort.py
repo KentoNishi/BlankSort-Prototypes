@@ -143,7 +143,7 @@ class BlankSort:
         listSize = args["listSize"] if "listSize" in args else 5
         # sets default similarity removal threshold to 0.75
         similarityThreshold = (
-            args["similarityThreshold"] if "similarityThreshold" in args else 0.75
+            args["similarityThreshold"] if "similarityThreshold" in args else 0.8
         )
         # processes text and generates tokens (words)
         # and position tags (noun, verb, adjective, etc.)

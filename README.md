@@ -70,7 +70,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
     1. After pre-processing, each word in the text is taken as a target word along with its context (`±K` words around the target, where `K` is typically 3) to evaluate its uniqueness score. 
     1. The uniqueness score is measured based on the average cosine similarity between the word and its context words.
     1. Sorting the words by uniqueness score yields a list of words sorted by their importance.
-    1. Candidate keywords are filtered (only nouns and adjectives).
+    1. Candidate keywords are filtered (only nouns and adjectives). Redundant words that are too similar are removed.
     1. The specified number of keywords are returned.
 
 
@@ -164,7 +164,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 ### Future Work
 * Implementing multi-word keyphrase extraction by collapsing nearby keywords
-* Changing hyperparameters (ex. window size) and optimizing word vectors 
+* Optimizing hyperparameters (window size, redundancy threshold, etc.) and word vectors 
 * Rewriting code in a compiled language (ex. C/C++) for better performance
 
 ## References
