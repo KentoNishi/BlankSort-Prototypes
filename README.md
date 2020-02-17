@@ -66,10 +66,12 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 * When a word is unique, "blanking" the word and predicting the original word is difficult. This is the fundamental concept of the BlankSort algorithm.
 * By calculating the difficulty of predicting every "blanked out" word, BlankSort can sort the words in the document by their importance.
 * General flow of the BlankSort Algorithm:
-    1. The input text is pre-processed. Stop words, punctuation marks, and capitalizations are discarded.
+    1. The input text is pre-processed. Stop words, punctuation marks, and capitalizations are discarded. All words are lemmatized.
     1. After pre-processing, each word in the text is taken as a target word along with its context (`±K` words around the target, where `K` is typically 3) to evaluate its uniqueness score. 
     1. The uniqueness score is measured based on the average cosine similarity between the word and its context words.
     1. Sorting the words by uniqueness score yields a list of words sorted by their importance.
+    1. Candidate keywords are filtered (only nouns and adjectives).
+    1. The specified number of keywords are returned.
 
 
 ## Algorithm
@@ -88,7 +90,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 * Figure 1.5
 	* The similarity scores are averaged for each target word, and the words are sorted by their scores in ascending order.
 * Figure 1.6
-	* The specified number of words with the lowest average similarity scores are selected.
+	* Candidate keywords are filtered (only nouns and adjectives), and the specified number of words with the lowest average similarity scores are selected.
 
 
 
