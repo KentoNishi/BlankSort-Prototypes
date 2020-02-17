@@ -54,9 +54,13 @@ class BlankSort:
         text = text.lower()
         tokens = nltk.word_tokenize(text)
         tokens = [word.strip() for word in tokens]
-        tokens = [word for word in tokens if len(word) > 1 and word.isalpha()]
+        tokens = [word for word in tokens if len(word) > 2 and word.isalpha()]
         lemmatizedWords = [self.lemmatize(word) for word in tokens]
-        lemmatizedWords = [word for word in lemmatizedWords if word not in self.__stops]
+        lemmatizedWords = [
+            word
+            for word in lemmatizedWords
+            if word not in self.__stops and len(word) > 2
+        ]
         return lemmatizedWords
 
     def processText(self, text):
