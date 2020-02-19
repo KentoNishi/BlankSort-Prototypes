@@ -60,6 +60,9 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 
 ## Inspiration and Approach
+
+![](./images/charts/inspiration.svg)
+
 * In most languages including English, text is extremely sparse – the number of keywords is very small in comparison to the total number of words in the document.
 * In sparse texts, words that are important in their paragraph and sentence are also important to the entire document. 
 * When a word is important, it is unique and stands out from the rest. Thus, the goal of the keyword extraction is to find the most unique word in each paragraph or sentence. 
@@ -119,7 +122,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 ### Inspec Dataset
 
 | Algorithm        | Precision                     | Recall | F1    | Time (ms) |
-|------------------|-------------------------------|------- |-------|---------- |
+|------------------|-------------------------------|--------|-------|---------- |
 | BlankSort        | 0.501                         | 0.484  | 0.492 | 9.359     |
 | MultipartiteRank | 0.442                         | 0.39   | 0.414 | 508.516   |
 | RAKE             | 0.388                         | 0.321  | 0.351 | 0.641     |
@@ -129,7 +132,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 ### DUC Dataset
 
 | Algorithm        | Precision                     | Recall | F1    | Time (ms) |
-|------------------|-------------------------------|------- |-------|---------- |
+|------------------|-------------------------------|--------|-------|---------- |
 | BlankSort        | 0.39                          | 0.387  | 0.389 | 36.475    |
 | MultipartiteRank | 0.383                         | 0.25   | 0.365 | 782.064   |
 | RAKE             | 0.116                         | 0.111  | 0.114 | 2.892     |
@@ -139,7 +142,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 ### NUS Dataset
 
 | Algorithm        | Precision                     | Recall | F1    | Time (ms) |
-|------------------|-------------------------------|------- |-------|---------- |
+|------------------|-------------------------------|--------|-------|---------- |
 | BlankSort        | 0.318                         | 0.318  | 0.318 | 286.357   |
 | MultipartiteRank | 0.287                         | 0.266  | 0.276 | 7380.03   |
 | RAKE             | 0.044                         | 0.038  | 0.041 | 24.924    |
