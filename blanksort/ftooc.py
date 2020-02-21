@@ -25,7 +25,7 @@ class FTOOC:
             self.preloadVectors()
 
     def __cos_sim(self, a, b):
-        return (1 + dot(a, b) / (norm(a) * norm(b))) / 2.0
+        return (1 + (dot(a, b) / (norm(a) * norm(b)))) / 2.0
 
     def inVocab(self, searchToken):
         return searchToken in self.vectorDatabase

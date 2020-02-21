@@ -54,7 +54,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 | Tokens            | An ordered list of filtered words. |
 | Target word       | A word that is potentially a keyword. |
 | Context           | A set of words that surround a target word that are within a constant number of tokens away. |
-| Contexts          | The set of all pairs of target words and their contexts. |
+| Contexts          | The set of all pairs of target words and their context words. |
 | Word vector       | A pre-trained vector representation of a word. |
 | Cosine similarity | A function that calculates the similarity of two word vectors. Values are in the range `[-1,1]`, where 1 is the maximum similarity and -1 is the minimum. |
 
