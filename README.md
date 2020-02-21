@@ -24,6 +24,10 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 
 * Keyword extraction is useful for web searching, article tagging, text categorization, and other text processing tasks.
+    * Automatic categorization of online content
+    * Extractive summarization of long articles
+    * Indexing large databases of text
+    * Search engine optimization
 * Current approaches can be categorized into three types:
     * Statistical – extremely fast but low accuracy
     * Graphs & Unsupervised Algorithms – high accuracy but poor efficiency and speed
@@ -57,6 +61,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 | Contexts          | The set of all pairs of target words and their context words. |
 | Word vector       | A pre-trained vector representation of a word. |
 | Cosine similarity | A function that calculates the similarity of two word vectors. Values are in the range `[-1,1]`, where 1 is the maximum similarity and -1 is the minimum. |
+| Similarity score  | The cosine similarity of two words, scaled to the range `[0,1]`.
 
 
 ## Inspiration and Approach
@@ -73,7 +78,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
     1. After pre-processing, each word in the text is taken as a target word along with its context (`±K` words around the target, where `K` is typically 3) to evaluate its uniqueness score. 
     1. The uniqueness score is measured based on the average cosine similarity between the word and its context words.
     1. Sorting the words by uniqueness score yields a list of words sorted by their importance.
-    1. Candidate keywords are filtered (only nouns and adjectives). Redundant words that are too similar are removed.
+    1. Candidate keywords are filtered (only nouns and adjectives). Redundant words that are too similar are removed. Words that appear frequently are given a score boost, as they are more likely to be keywords.
     1. The specified number of keywords are returned.
 
 
@@ -82,17 +87,15 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 
 ![](./images/charts/flowchart.svg)
 
-* Figure 1.1
+* Step 1
     * The input document is passed to the algorithm.
-* Figure 1.2
+* Step 2
 	* The text is filtered and tokenized into an array of individual words.
-* Figure 1.3
-	* The contexts for each target word are generated.
-* Figure 1.4
-	* Similarity scores are computed for each target word and context word using word vectors.
-* Figure 1.5
-	* The similarity scores are averaged for each target word, and the words are sorted by their scores in ascending order.
-* Figure 1.6
+* Step 3
+	* The contexts for each target word are generated. Similarity scores are computed for each target word and context word using word vectors.
+* Step 4
+	* The similarity scores are averaged for each target word, and the words are sorted by their scores in ascending order. Words that appear frequently are given a boost in the rankings, as they are more likely to be keywords.
+* Step 5
 	* Candidate keywords are filtered (only nouns and adjectives), and the specified number of words with the lowest average similarity scores are selected.
 
 
