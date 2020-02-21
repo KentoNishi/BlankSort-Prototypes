@@ -8,6 +8,7 @@ A Novel Unsupervised Approach to Keyword Extraction
 1. [Algorithm](#algorithm)
 1. [Evaluation and Metrics](#evaluation-and-metrics)
 1. [Results](#results)
+1. [Samples](#samples)
 1. [Conclusion and Discussion](#conclusion-and-discussion)
 1. [References](#references)
 
@@ -80,6 +81,7 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
     1. Sorting the words by uniqueness score yields a list of words sorted by their importance.
     1. Candidate keywords are filtered (only nouns and adjectives). Redundant words that are too similar are removed. Words that appear frequently are given a score boost, as they are more likely to be keywords.
     1. The specified number of keywords are returned.
+* `O(N*K)` time complexity (`N` tokens, window size `K`)
 
 
 ## Algorithm
@@ -160,6 +162,21 @@ Keyword extraction is used for tasks such as web searching, article tagging, tex
 | Inspec   | ![](./images/charts/InspecPerformance.svg) | ![](./images/charts/InspecTime.svg) |
 | DUC      | ![](./images/charts/DUCPerformance.svg)    | ![](./images/charts/DUCTime.svg)    |
 | NUS      | ![](./images/charts/NUSPerformance.svg)    | ![](./images/charts/NUSTime.svg)    |
+
+
+## Samples
+* **Input:** My friend's dad had a surgery last year to remove his kidney cancer.
+    * **Output:** friend, dad, cancer, kidney, surgery
+* **Input:** Word embedding is the collective name for a set of language modeling and feature learning techniques in natural language processing (NLP) where words or phrases from the vocabulary are mapped to vectors of real numbers. Conceptually it involves a mathematical embedding from a space with many dimensions per word to a continuous vector space with a much lower dimension.
+    * **Output:** word, dimension, vector, space, language
+* **Input:** Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python's design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including procedural, object-oriented, and functional programming. Python is often described as a "batteries included" language due to its comprehensive standard library.
+    * **Output:** python, language, programming, code, library
+* **Input:** Machine learning (ML) is the scientific study of algorithms and statistical models that computer systems use to perform a specific task without using explicit instructions, relying on patterns and inference instead. It is seen as a subset of artificial intelligence.
+    * **Output:** algorithm, machine, task, perform, model
+* **Input:** Data science is a multi-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from structured and unstructured data. Data science is related to data mining and big data.
+data, science, field, extract, knowledge
+
+
 
 ## Conclusion and Discussion
 
